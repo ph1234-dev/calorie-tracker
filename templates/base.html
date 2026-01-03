@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Tracker</title>  
+    <link rel="stylesheet" href="{% static 'dist/output.css' %}">
+    
+    {% comment %} fonts {% endcomment %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Gabarito:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    {% comment %} icons {% endcomment %}
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+    <script src="{% static 'js/update_food.js' %}"></script>
+    <style>
+        .poppins-regular {
+            font-family: "Poppins", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            }
+
+            .gabarito-regular {
+            font-family: "Gabarito", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            }
+
+        .cal-sans-regular {
+            font-family: "Cal Sans", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            }
+    </style>    
+</head>
+
+<body class="h-full min-h-screen flex flex-col gabarito-regular ">
+
+    {% block header %}
+    {% comment %} <header class="bg-gray-200 w-full h-20 flex items-center px-4 ">
+        <p class="text-4xl">Calorie Tracker Calendar</p>  
+    </header> {% endcomment %}
+    {% endblock %}
+
+    <!-- Content stretches to fill remaining height -->
+    <main class="flex-1  ">
+        {% block content %}
+            <h1>Default Index Page</h1>
+        {% endblock %}
+    </main>
+
+    {% block footer %}
+ 
+    {% endblock %}
+
+</body>
+</html>

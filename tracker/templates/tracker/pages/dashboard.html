@@ -1,0 +1,136 @@
+{% extends 'tracker/index.html' %}
+
+{% block content %}
+  <div class="flex flex-col max-w-6xl justify-between items-center mb-4 mx-auto py-10">
+    {% comment %} <span class="cal-sans-regular text-4xl">{{ year }}</span> {% endcomment %}
+        
+    
+    <span class="text-4xl cal-sans-regular">{{ year }}</span>
+
+      <!-- Centered prev/month/next -->
+      <span class="flex mx-auto items-center">
+        <a class="text-xl flex items-center py-1 px-2 rounded  font-medium  text-blue-700" 
+          href="?year={{ prev_year }}&month={{ prev_month }}">
+          <span class="material-symbols-outlined">chevron_left</span>
+          Prev
+        </a>
+        <span class=" px-8 text-2xl">{{ month_name }}  </span>
+
+        <a class="text-xl flex items-center py-1 px-2 rounded font-medium text-blue-700" 
+          href="?year={{ next_year }}&month={{ next_month }}">
+          Next
+          <span class="material-symbols-outlined">chevron_right</span>
+        </a>
+      </span>
+
+
+    {% comment %} <p class="mt-4">Hover and select the date to start logging your record</p> {% endcomment %}
+
+    <table class="table-fixed w-6xl mt-4 border-collapse border border-gray-200 text-center">
+      <thead class="">
+        <tr class="">
+          <th class="py-2 px-4 text-left text-gray-700 bg-gray-50 border border-gray-200">Sun</th>
+          <th class="py-2 px-4 text-left text-gray-700 bg-gray-50 border border-gray-200">Mon</th>
+          <th class="py-2 px-4 text-left text-gray-700 bg-gray-50 border border-gray-200">Tue</th>
+          <th class="py-2 px-4 text-left text-gray-700 bg-gray-50 border border-gray-200">Wed</th>
+          <th class="py-2 px-4 text-left text-gray-700 bg-gray-50 border border-gray-200">Thu</th>
+          <th class="py-2 px-4 text-left text-gray-700 bg-gray-50 border border-gray-200">Fri</th>
+          <th class="py-2 px-4 text-left text-gray-700 bg-gray-50 border border-gray-200">Sat</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for week in calendar_data %}
+          <tr>
+            {% for cell in week %}
+              {% if cell %}
+                <td class="text-left border border-gray-200 
+                  {% if cell.calories <= 150 %}
+                    
+                    bg-gray-50
+                  {% elif cell.calories <= 150 %}
+                    
+                    bg-gray-50
+
+                  {% elif cell.calories <= 300 %}
+                    
+                    bg-lime-100
+
+                  {% elif cell.calories <= 450 %}
+                    
+                    bg-lime-200
+
+                  {% elif cell.calories <= 600 %}
+                    
+                    bg-lime-300
+                  {% elif cell.calories <= 750 %}
+                    
+                    bg-lime-400
+
+                  {% elif cell.calories <= 900 %}
+                    
+                    bg-lime-500
+
+                  {% elif cell.calories <= 1050 %}
+                                          
+                    bg-lime-600
+
+                  {% elif cell.calories <= 1200 %}
+                                      
+                    bg-amber-200
+
+                  {% elif cell.calories <= 1350 %}
+                                        
+                    bg-amber-300
+
+                  {% elif cell.calories <= 1500 %}
+                    
+                    bg-amber-400
+
+                  {% elif cell.calories <= 1650 %}
+                                        
+                    bg-amber-500
+                  {% elif cell.calories <= 1800 %}
+                                         
+                    bg-orange-400  
+
+                  {% elif cell.calories <= 1950 %}
+                                         
+                    bg-orange-500
+
+                  {% elif cell.calories <= 2100 %}
+                    
+                    bg-rose-700
+                      text-white/80
+
+                  {% else %}
+                    
+                      bg-rose-800
+                      text-white/80
+
+                  {% endif %}
+                ">
+                  <a href="{% url 'tracker:dashboard_add_food' %}?year={{ year }}&month={{ month }}&day={{ cell.day }}" class="flex flex-col justify-between gap-6 px-4 py-4">
+                    <div class="font-semibold cal-sans-regular">{{ cell.day }}</div>
+
+                    {% if cell.calories > 0 %}
+                      <div class="flex items-center justify-between">
+                        {{ cell.calories }} cal{% if cell.is_today %}
+                          <span class="material-symbols-outlined">local_dining</span>
+                        {% endif %}
+                      </div>
+                    {% else %}
+                      {% comment %}tailwind invisible makes the element take up space but not be visible{% endcomment %}
+                      <div class="invisible">0 cal</div>
+                    {% endif %}
+                  </a>
+                </td>
+              {% else %}
+                <td class="border border-gray-200"></td>
+              {% endif %}
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

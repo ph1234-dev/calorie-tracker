@@ -1,0 +1,62 @@
+
+
+# -------------------------
+# Python
+# -------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+env/
+venv/
+.venv/
+
+# -------------------------
+# Django
+# -------------------------
+*.log
+db.sqlite3
+db.sqlite3-journal
+media/
+
+# Static files (production collectstatic)
+staticfiles/
+
+# Django migrations cache
+*/migrations/__pycache__/
+
+# -------------------------
+# Environment variables
+# -------------------------
+.env
+.env.*
+!.env.example
+
+# -------------------------
+# IDE / Editor
+# -------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# -------------------------
+# OS
+# -------------------------
+.DS_Store
+Thumbs.db
+
+# -------------------------
+# Testing / Coverage
+# -------------------------
+.coverage
+htmlcov/
+.pytest_cache/
+
+# -------------------------
+# Node / Frontend (if using Tailwind / Vite)
+# -------------------------
+node_modules/
+npm-debug.log*
+yarn-error.log*

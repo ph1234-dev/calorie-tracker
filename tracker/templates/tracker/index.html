@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static  %} 
+{% comment %} # we need to load static to use static files like images {% endcomment %}
+{% comment %} {% load static %} only registers the tag in that file {% endcomment %}
+{% comment %} It does not propagate to child templates {% endcomment %}
+
+{% block header%}
+
+    {% comment %} {% if user.is_authenticated %}
+        {% include 'tracker/partials/header.html' %}
+    {% endif %} {% endcomment %}
+
+        {% include 'tracker/partials/header.html' %}
+    
+{% endblock %}
+
+
+{% block content %}
+{% comment %} min-h-screen {% endcomment %}
+<div class="flex items-center justify-center mt-24">
+                
+        <div class="flex max-w-6xl mx-auto h-auto items-center rounded shadow">
+            <section class=" flex flex-col gap-4 flex-1 px-8 py-6
+                    bg-linear-to-r from-gray-50 to-gray-50 
+                    rounded-tl-md rounded-bl-md
+                ">
+
+                <h1 class="text-4xl cal-sans-regular">Welcome to Calorie Tracker</h1>
+                <p class="text-xl">Plot and track how many calories have you taken daily  easily.</p>
+                <img
+                    class="" 
+                    src="{% static 'img/index-featured-image.png' %}" alt="Calorie Tracker Image" class="w-full h-auto mb-4">
+        </section>
+        <section 
+                class="w-4/12 flex flex-col gap-7
+                    px-8 py-6 h-fit 
+                    rounded-tr-md rounded-br-md
+                     ">
+            
+                <div>
+                    <h1 class="text-2xl  cal-sans-regular">Account Login</h1>
+                    <p class="text-sm">Login to your account to start tracking your calories.</p>
+                </div>
+
+                {% if error %}
+                <p style="color:red">{{ error }}</p>
+                {% endif %}
+
+                <form method="post" class="flex flex-col gap-4" novalidate>
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                        <div class="text-sm text-rose-600">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+
+                    <div >
+                        <label for="{{ form.username.id_for_label }}">Username</label><br>
+                        {{ form.username }}
+                        {% if form.username.errors %}
+                            <div  class="text-sm text-rose-600">{{ form.username.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div >
+                        <label for="{{ form.password.id_for_label }}">Password</label><br>
+                        {{ form.password }}
+                        {% if form.password.errors %}
+                            <div  class="text-sm text-rose-600">{{ form.password.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <button type="submit" class="bg-emerald-600 text-white rounded px-4 py-2 w-fit">
+                        Login
+                    </button>
+                </form>
+
+
+                <p class="mt-12">Don't have an account? <a class="underline text-green-600" href="{% url 'tracker:register' %}">Register here</a></p>
+            </section>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block footer %}
+
+    {% if user.is_authenticated %}
+        {% include 'tracker/partials/footer.html' %}
+    {% endif %}
+    
+{% endblock %}

@@ -1,0 +1,95 @@
+<nav class="bg-white shadow-md">
+    <div class="max-w-7xl mx-auto ">
+        <div class="flex justify-between h-16 items-center font-semibold">
+            
+            {% comment %} Logo: link to dashboard if logged in, else index {% endcomment %}
+            <a 
+                class="flex items-center gap-1 rounded  px-4 py-2 cal-sans-regular  " 
+                href="{% if user.is_authenticated %}{% url 'tracker:dashboard' %}{% else %}{% url 'tracker:index' %}{% endif %}">
+                Calorie Tracker
+            </a>
+
+            {% if user.is_authenticated %}
+                <div class="flex gap-4 items-center">
+                    <span class="text-gray-700 font-medium flex gap-2">
+                        <span class="material-symbols-outlined">
+                            calendar_meal
+                        </span>
+                        <p>
+                            You took around <span class="font-bold text-emerald-700">{{ context_processor_calculate_today_calories }} cal </span> 
+                            this Today {{context_processor_calculate_today_calories_today_date}}                    
+                        </p>
+                    </span>
+                    <a   
+                        class="flex items-center gap-4 rounded bg-emerald-700 px-4 py-2 text-white/90"
+                        href="{% url 'tracker:add_food' %}">
+                        
+                        <span class="material-symbols-outlined">
+                            udon 
+                        </span>
+                        Add Food for Today
+                    </a>
+
+                    <!-- Profile Dropdown -->
+                    <div class="relative">
+                        <button id="profile-btn" class="flex items-center gap-2 rounded bg-gray-200 px-4 py-2 hover:bg-gray-300 transition">
+                           <span class="material-symbols-outlined">
+                                settings
+                            </span> 
+                        </button>
+
+
+                        <!-- Dropdown Menu -->
+                        <div id="profile-menu" class="hidden absolute right-0 mt-2 w-72 bg-white rounded shadow-md z-50 pt-4">
+                            
+                            <!-- Arrow -->
+                            <!-- Clean Arrow -->
+                            <div class="absolute -top-1 right-3 w-0 h-0 border-l-4 border-r-4 border-b-4 border-l-transparent border-r-transparent border-b-gray-100"></div>
+                            
+                            <!-- Menu Items -->
+                            
+                            <p class="px-4 py-2">Hello {{ user.first_name }}</p>
+                            <a href="{% url 'tracker:logout' %}" 
+                                class="flex items-center gap-2 bg-gray-50 px-4 py-2 text-gray-700 hover:bg-emerald-700 hover:text-white/90">
+                               <span class="material-symbols-outlined">
+                                account_circle
+                                </span>
+                                Profile
+                            </a>
+                            <a href="{% url 'tracker:logout' %}" 
+                                class="flex items-center gap-2 bg-gray-50 px-4 py-2 text-gray-700 hover:bg-emerald-700 hover:text-white/90">
+                               <span class="material-symbols-outlined">
+                                    logout
+                                </span> 
+                                Logout
+                            </a>
+                            <p class="px-4  text-xs font-light py-3 text-gray-600">Privacy Policy · Terms and Conditions</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+</nav>
+
+
+
+<script>
+  // Pure JS dropdown
+  const profileBtn = document.getElementById('profile-btn');
+  const profileMenu = document.getElementById('profile-menu');
+
+  // Toggle menu
+  profileBtn.addEventListener('click', () => {
+    profileMenu.classList.toggle('hidden');
+  });
+
+  // Close dropdown if clicked outside
+  document.addEventListener('click', (e) => {
+    if (!profileBtn.contains(e.target) && !profileMenu.contains(e.target)) {
+      profileMenu.classList.add('hidden');
+    }
+  });
+</script>
